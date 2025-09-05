@@ -13,3 +13,72 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+//  User
+model User {
+  id               Int                @id @default(autoincrement())
+  name             String
+  age              Int
+  gender           String
+  email            String             @unique
+  password         String
+  workoutTemplates WorkoutTemplate[]
+  workouts         Workout[]
+}
+
+// For Workouts
+model Workout {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  user      User       @relation(fields: [userId], references: [id])
+  exercises Exercise[]
+  templateId Int? // Optional - tracks which template this came from
+  template WorkoutTemplate? @relation(fields: [templateId], references: [id])
+  createdAt DateTime @default(now())
+  completedAt DateTime?
+}
+
+model Exercise {
+  id              Int     @id @default(autoincrement())
+  name            String
+  restBetweenSets Int // In Seconds
+  sets            Set[]
+  workoutId       Int
+  workoutT        Workout @relation(fields: [workoutId], references: [id])
+}
+
+model Set {
+  id         Int      @id @default(autoincrement())
+  reps       Int
+  weight     Decimal
+  completed  Boolean  @default(false)
+  exerciseId Int
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+}
+
+// Templates
+model WorkoutTemplate {
+  id        Int                @id @default(autoincrement())
+  name      String
+  userId    Int
+  user      User               @relation(fields: [userId], references: [id])
+  exercises ExerciseTemplate[]
+  workouts Workout[]
+}
+
+model ExerciseTemplate {
+  id                Int              @id @default(autoincrement())
+  name              String
+  restBetweenSets   Int // In Seconds
+  sets              SetTemplate[]
+  workoutTemplateId Int
+  workoutTemplate   WorkoutTemplate @relation(fields: [workoutTemplateId], references: [id])
+}
+
+model SetTemplate {
+  id                 Int              @id @default(autoincrement())
+  reps               Int
+  weight             Decimal
+  exerciseTemplateId Int
+  exercise           ExerciseTemplate @relation(fields: [exerciseTemplateId], references: [id])
+}
