@@ -1,11 +1,10 @@
 import 'server-only'
-import { SignJWT, jwtVerify } from 'jose'
+import { SignJWT, jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
+
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
-
-import type { JWTPayload } from 'jose'
 
 export async function encrypt(payload: JWTPayload) {
     return new SignJWT(payload)
@@ -14,6 +13,7 @@ export async function encrypt(payload: JWTPayload) {
         .setExpirationTime('7d')
         .sign(encodedKey)
 }
+
 export async function createSession(userId: string) {
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     const session = await encrypt({ userId, expiresAt })
@@ -27,18 +27,34 @@ export async function createSession(userId: string) {
         path: '/',
     })
 }
+
 export async function decrypt(session: string | undefined = '') {
-    try {
+
+    if (!session || session.trim() === '') {
+        return null; // or handle empty session appropriately
+    }
+    const parts = session.split('.');
+    if (parts.length !== 3) {
+        throw new Error('Invalid JWT format');
+    }
+
+   try {
         const { payload } = await jwtVerify(session, encodedKey, {
             algorithms: ['HS256'],
-        })
-        return payload
+        });
+        return payload;
     } catch (error) {
-        console.log('Failed to verify session', error)
+        console.error('JWT verification failed:', error);
+        return null; // or handle error appropriately
     }
 }
 
 export async function deleteSession() {
     const cookieStore = await cookies()
     cookieStore.delete('session')
+}
+
+export async function isLoggedIn() {
+    const cookieStore = await cookies()
+    return Boolean(cookieStore.get('session')?.value)
 }
