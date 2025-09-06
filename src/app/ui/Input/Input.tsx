@@ -3,7 +3,7 @@ type InputProps = {
     label: string;
     name: string;
     type: string;
-    error?: any;
+    error?: string | string[];
     value?: string;
     classNames?: string;
 };
@@ -22,7 +22,7 @@ export default function Input({ value, label, name, type, error, classNames }: I
                     (error.length == 1 && error[0] === 'Incorrect Password entered.') ?
                         error : (<div><p>Password must:</p>
                             <ul>
-                                {error.map((e: any) => (
+                                {Array.isArray(error) && error.map((e: string) => (
                                     <li key={e}>- {e}</li>
                                 ))}
                             </ul> </div>)

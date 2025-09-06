@@ -1,7 +1,4 @@
-import Image from "next/image";
-import { PrismaClient } from "./generated/prisma";
-import { withOptimize } from "@prisma/extension-optimize";
-import Link from "next/link";
+
 import Button from "./ui/Button/Button";
 import { logout } from "./actions/auth";
 

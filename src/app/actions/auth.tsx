@@ -27,7 +27,7 @@ export async function signup(state: FormState, formData: FormData) {
   const hashedPassword = await bcrypt.hash(password, 10)
 
   try {
-    const data = await prisma.user.create({
+    await prisma.user.create({
       data: {
         name,
         email,
@@ -37,15 +37,15 @@ export async function signup(state: FormState, formData: FormData) {
       }
     })
 
-
     return {
       success: {
         message: "User created successfully."
       }
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     // Handle email duplication
-    switch (err.name) {
+    const error = err as { name?: string };
+    switch (error.name) {
       case "PrismaClientKnownRequestError":
         return {
           errors: {
