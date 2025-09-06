@@ -3,7 +3,18 @@
 import Link from "next/link";
 import { animate } from 'animejs';
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
+
+const navLinks = [{
+    label: 'Dashboard',
+    url: '/'
+}, {
+    label: 'History',
+    url: '/history'
+}, {
+    label: 'Templates',
+    url: '/templates'
+}]
 
 
 export default function Nav() {
@@ -11,20 +22,9 @@ export default function Nav() {
     const activeStateRef = useRef<HTMLDivElement>(null);
     const linksRef = useRef<HTMLLIElement[]>([])
 
-    const navLinks = [{
-        label: 'Dashboard',
-        url: '/'
-    }, {
-        label: 'History',
-        url: '/history'
-    }, {
-        label: 'Templates',
-        url: '/templates'
-    }]
-
     useEffect(() => {
         linksRef.current = linksRef.current.slice(0, navLinks.length);
-    }, [navLinks]);
+    }, []);
 
     useEffect(() => {
         const activeIndex = navLinks.findIndex(link => link.url === pathname);
@@ -37,7 +37,7 @@ export default function Nav() {
             if (nav) {
                 const navRect = nav.getBoundingClientRect();
                 const linkRect = activeLink.getBoundingClientRect();
-                
+
                 // Calculate position relative to nav container
                 const targetX = linkRect.left - navRect.left;
                 const targetWidth = linkRect.width;
