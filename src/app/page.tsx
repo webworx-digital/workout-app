@@ -1,17 +1,10 @@
 
-import Button from "./ui/Button/Button";
-import { logout } from "./actions/auth";
+import Header from "./ui/Header/Header";
 
 export default function Home() {
-
-
-  // const prisma = new PrismaClient().$extends(
-  //   withOptimize({ apiKey: process.env.OPTIMIZE_API_KEY! })
-  // )
-
   return (
-    <div className="text-2xl gap-4 container flex mx-auto h-dvh justify-center items-center">
-      <Button onClick={logout}>Logout</Button>
+    <div className="text-2xl gap-4 container mx-auto">
+
       Hello World!! This is a workout app
     </div>
   );
