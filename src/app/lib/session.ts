@@ -56,5 +56,5 @@ export async function deleteSession() {
 
 export async function isLoggedIn() {
     const cookieStore = await cookies()
-    return cookieStore.get('session')?.value && true
+    return Boolean(cookieStore.get('session')?.value)
 }

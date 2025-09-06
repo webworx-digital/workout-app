@@ -1,14 +1,12 @@
 
 'use client'
-
 import Link from "next/link";
 import { animate } from 'animejs';
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 
 export default function Nav() {
-    'use client'
     const pathname = usePathname();
     const activeStateRef = useRef<HTMLDivElement>(null);
     const linksRef = useRef<HTMLLIElement[]>([])
