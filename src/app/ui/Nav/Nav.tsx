@@ -1,15 +1,14 @@
 
 'use client'
-import { logout } from "@/app/actions/auth";
-import Button from "../Button/Button";
+
 import Link from "next/link";
 import { animate } from 'animejs';
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 
 export default function Nav() {
-    // 'use client'
+    'use client'
     const pathname = usePathname();
     const activeStateRef = useRef<HTMLDivElement>(null);
     const linksRef = useRef<HTMLLIElement[]>([])
