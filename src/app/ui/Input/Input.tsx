@@ -6,16 +6,18 @@ type InputProps = {
     error?: string | string[];
     value?: string;
     classNames?: string;
+    placeholder?:string
 };
 
-export default function Input({ value, label, name, type, error, classNames }: InputProps) {
+export default function Input({ value, label, name, type, error, classNames,placeholder }: InputProps) {
     return (
-        <div className={`mb-4 ${classNames}`}>
+        <div className={classNames}>
             <label className="block mb-2 capitalize" htmlFor={name}>
                 {label}
             </label>
 
-            <input className="appearance-none block w-full border border-gray-300 rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name={name} id={name} type={type} value={value} placeholder={'Enter ' + name} />
+            <input className="appearance-none block w-full border border-gray-300 rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name={name} id={name} type={type} value={value} placeholder={placeholder ? placeholder : 
+                'Enter ' + name} />
             <span className="text-red-800 text-sm mt-1 block">
 
                 {(type == 'password' && error) ?

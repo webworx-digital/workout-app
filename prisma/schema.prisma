@@ -30,10 +30,10 @@ model User {
 model Workout {
   id        Int        @id @default(autoincrement())
   userId    Int
-  user      User       @relation(fields: [userId], references: [id])
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   exercises Exercise[]
   templateId Int? // Optional - tracks which template this came from
-  template WorkoutTemplate? @relation(fields: [templateId], references: [id])
+  template WorkoutTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
   createdAt DateTime @default(now())
   completedAt DateTime?
 }
@@ -44,7 +44,7 @@ model Exercise {
   restBetweenSets Int // In Seconds
   sets            Set[]
   workoutId       Int
-  workoutT        Workout @relation(fields: [workoutId], references: [id])
+  workoutT        Workout @relation(fields: [workoutId], references: [id], onDelete: Cascade)
 }
 
 model Set {
@@ -53,7 +53,7 @@ model Set {
   weight     Decimal
   completed  Boolean  @default(false)
   exerciseId Int
-  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
 }
 
 // Templates
@@ -61,7 +61,7 @@ model WorkoutTemplate {
   id        Int                @id @default(autoincrement())
   name      String
   userId    Int
-  user      User               @relation(fields: [userId], references: [id])
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   exercises ExerciseTemplate[]
   workouts Workout[]
 }
@@ -72,7 +72,7 @@ model ExerciseTemplate {
   restBetweenSets   Int // In Seconds
   sets              SetTemplate[]
   workoutTemplateId Int
-  workoutTemplate   WorkoutTemplate @relation(fields: [workoutTemplateId], references: [id])
+  workoutTemplate   WorkoutTemplate @relation(fields: [workoutTemplateId], references: [id], onDelete: Cascade)
 }
 
 model SetTemplate {
@@ -80,5 +80,5 @@ model SetTemplate {
   reps               Int
   weight             Decimal
   exerciseTemplateId Int
-  exercise           ExerciseTemplate @relation(fields: [exerciseTemplateId], references: [id])
+  exercise           ExerciseTemplate @relation(fields: [exerciseTemplateId], references: [id], onDelete: Cascade)
 }

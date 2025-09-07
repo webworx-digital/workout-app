@@ -86,8 +86,8 @@ export async function login(state: FormState, formData: FormData) {
     }
   }
 
-  if(!await bcrypt.compare(password, user.password)){
-     return {
+  if (!await bcrypt.compare(password, user.password)) {
+    return {
       errors: {
         password: ['Incorrect Password entered.']
       }

@@ -1,35 +1,22 @@
 
-export default function History() {
+import Link from "next/link";
+import { getWorkoutTemplates } from "../lib/dal";
+import TemplateTable from "../ui/TemplateTable/TemplateTable";
+
+export default async function Templates() {
+  // Fetch data at the page level
+  const data = await getWorkoutTemplates();
+
   return (
-    <div className="gap-4 container mx-auto">
-      <h2 className="text-3xl font-bold mb-3">Templates</h2>
-      <div data-table="templates">
-        <div data-table-header>
-          <div>Template Name</div>
-          <div>Total Exercises</div>
-          <div>Actions</div>
-        </div>
-        <ul data-table-list>
-          <li>
-            <p>Push Day</p>
-            <p>
-              12 Exercises
-            </p>
-          </li>
-          <li>
-            <p>Push Day</p>
-            <p>
-              12 Exercises
-            </p>
-          </li>
-          <li>
-            <p>Push Day</p>
-            <p>
-              12 Exercises
-            </p>
-          </li>
-        </ul>
+    <div>
+      <div className="flex justify-between items-center">
+        <h2 className="text-3xl font-bold mb-3">Templates</h2>
+        <Link href="/templates/create" className="underline hover:no-underline">
+          Create Templates
+        </Link>
       </div>
+
+      <TemplateTable initialData={data} />
     </div>
   );
 }
