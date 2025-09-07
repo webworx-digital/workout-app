@@ -1,12 +1,11 @@
 
-import Image from 'next/image';
 import LoginForm from '../ui/LoginForm/LoginForm';
 
 export default function Login() {
 
     return (
         <div className="flex mx-auto h-dvh">
-            <div className="relative flex-1">
+            {/* <div className="relative flex-1">
                 <Image
                     src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=100&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     fill
@@ -14,9 +13,9 @@ export default function Login() {
                     className='object-cover -z-10'
                     priority
                 />
-            </div>
+            </div> */}
 
-            <div className="relative flex-1 bg-gray-100 flex justify-center items-center">
+            <div className="relative flex-1 flex justify-center items-center">
                 <LoginForm className="relative w-lg border bg-white-700/40 border-gray-400 rounded-lg" />
                 <p className="text-center text-gray-500 text-xs absolute bottom-20 left-1/2 -translate-x-1/2">
                     &copy;2025 Workout App. All rights reserved.

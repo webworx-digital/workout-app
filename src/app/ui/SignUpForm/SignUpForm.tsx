@@ -12,7 +12,6 @@ export interface FormProps {
 }
 
 export default function SignUpForm({ className }: FormProps) {
-    //
     const [state, action, pending] = useActionState(signup, undefined)
 
     useEffect(() => {
@@ -20,7 +19,6 @@ export default function SignUpForm({ className }: FormProps) {
             toast.success(state.success.message || 'Success!');
         }
     }, [state?.success])
-    // (state?.success?.message == 'User created successfully.' && alert("")
 
     return (
         <form action={action} className={` gap-2 shadow-md p-12 flex text-gray-800 relative flex-wrap ${className}`}>

@@ -1,12 +1,11 @@
 
-import Image from 'next/image';
 import SignUpForm from '../ui/SignUpForm/SignUpForm';
 
 export default function SignUp() {
 
     return (
         <div className="flex mx-auto h-dvh">
-            <div className="relative flex-1">
+            {/* <div className="relative flex-1">
                 <Image
                     src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=100&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     fill
@@ -14,7 +13,7 @@ export default function SignUp() {
                     className='object-cover -z-10'
                     priority
                 />
-            </div>
+            </div> */}
 
             <div className="relative flex-1 bg-gray-100 flex justify-center items-center">
                 
