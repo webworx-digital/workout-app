@@ -4,11 +4,13 @@ import Input from "../Input/Input";
 import SetForm from "../SetForm/SetForm";
 import { ExerciseErrors } from "@/app/utils/formatZodErrors";
 
-interface ExerciseForm {
+export interface ExerciseForm {
     exerciseNumber: number,
     onRemove: () => void,
     errors: ExerciseErrors | undefined
 }
+
+const vars: Omit<ExerciseForm, "onRemove"> = { exerciseNumber: 1, errors: undefined }
 
 export default function ExerciseForm({ exerciseNumber, onRemove, errors }: ExerciseForm) {
     const [sets, setSets] = useState([{ id: 1 }]);
@@ -37,6 +39,7 @@ export default function ExerciseForm({ exerciseNumber, onRemove, errors }: Exerc
                 >
                     Remove Exercise
                 </Button>
+
             </div>
 
             <div className="space-y-4">

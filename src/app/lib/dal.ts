@@ -5,10 +5,7 @@ import { decrypt } from '@/app/lib/session'
 import { cache } from 'react'
 import { redirect } from 'next/navigation';
 import prisma from './prisma';
-import {  revalidateTag, unstable_cache } from 'next/cache';
-
-
-
+import { revalidateTag, unstable_cache } from 'next/cache';
 
 export const verifySession = cache(async () => {
     const cookie = (await cookies()).get('session')?.value
@@ -63,7 +60,7 @@ const getCachedWorkoutTemplates = unstable_cache(
                 userId: parseInt(userId)
             },
             select: {
-                id:true,
+                id: true,
                 name: true,
                 _count: {
                     select: {
@@ -122,5 +119,18 @@ export const deleteWorkoutTemplate = async (id: number) => {
         return {
             status: false
         }
+    }
+}
+
+
+export const getTotalWorkoutTemplates = async () => {
+    const { isAuth, userId } = await verifySession();
+    if (isAuth && userId) {
+        const count = await prisma.workoutTemplate.count({
+            where: {
+                userId: parseInt(userId.toString())
+            }
+        });
+        return JSON.parse(JSON.stringify(count));
     }
 }
