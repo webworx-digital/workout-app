@@ -2,7 +2,7 @@
 export default function History() {
   return (
     <div className="text-2xl gap-4">
-      Hello World!! This is a workoasdast app
+      Workout History will be displayed here
     </div>
   );
 }
