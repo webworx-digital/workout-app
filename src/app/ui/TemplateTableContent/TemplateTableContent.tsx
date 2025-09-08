@@ -15,7 +15,6 @@ export default function TemplateTableContent() {
         setDeletingIds(prev => new Set(prev).add(id));
         try {
             await removeTemplate(id);
-            console.log(id);
         } catch (error) {
             console.error('Delete failed:', error);
         } finally {

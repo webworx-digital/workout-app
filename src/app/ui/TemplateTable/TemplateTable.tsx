@@ -10,7 +10,6 @@ export default function TemplateTable() {
 
     useEffect(() => {
         setIsLoading(false);
-        console.log(templates)
     }, [ templates.length]);
 
     return (

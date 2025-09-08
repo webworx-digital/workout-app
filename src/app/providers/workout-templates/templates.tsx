@@ -79,37 +79,26 @@ export default function WorkoutTemplatesProvider({
 
 
     const addTemplate = useCallback((newTemplate: TemplateData) => {
-        console.log("addTemplate called with:", newTemplate)
         setTemplates(prev => [...prev, newTemplate])
     }, [])
 
     const removeTemplate = useCallback(async (id: number) => {
         let status = null;
         try {
-            console.log('i am being called')
             status = await deleteWorkoutTemplateAction(id); // Get status from the action
-            console.log(status)
             if (status) {
-                console.log('haha')
                 setTemplates(prev => {
                     const updatedTemplates = prev.filter(template => template.id !== id);
-                    console.log(updatedTemplates)
                     try {
                         if (updatedTemplates.length >= 1) {
-                            console.log("i am here - saving templates")
                             localStorage.setItem(localStorageKey, JSON.stringify(updatedTemplates));
                         } else {
-                            console.log("i am here - clearing templates", 0)
-                            console.log("Key to remove:", localStorageKey)
-
                             try {
                                 localStorage.removeItem(localStorageKey);
 
                                 setTimeout(() => {
                                     const check = localStorage.getItem(localStorageKey);
-                                    console.log("After timeout, key value:", check);
                                     if (check !== null) {
-                                        console.log("Key still exists, trying again...");
                                         localStorage.removeItem(localStorageKey);
                                     }
                                 }, 10);
@@ -132,7 +121,6 @@ export default function WorkoutTemplatesProvider({
     }, []);
 
     const updateTemplate = useCallback((id: number, updatedTemplate: TemplateData) => {
-        console.log("updateTemplate called with id:", id, "template:", updatedTemplate)
         setTemplates(prev => prev.map(template =>
             template.id === id ? updatedTemplate : template
         ))
