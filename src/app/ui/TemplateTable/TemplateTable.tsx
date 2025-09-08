@@ -1,21 +1,17 @@
 'use client'
 import { Suspense, useEffect, useState } from "react";
-import { TemplateData, useWorkoutTemplates } from "@/app/providers/workout-templates/templates";
+import { useWorkoutTemplates } from "@/app/providers/workout-templates/templates";
 import TemplateTableLoading from "../TemplateTableLoading/TemplateTableLoading";
 import TemplateTableContent from "../TemplateTableContent/TemplateTableContent";
 
-export default function TemplateTable({ initialData }: {
-    initialData: TemplateData[]
-}) {
-    const { setTemplates, templates } = useWorkoutTemplates();
+export default function TemplateTable() {
+    const { templates } = useWorkoutTemplates();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (templates.length === 0) {
-            setTemplates(initialData);
-        }
         setIsLoading(false);
-    }, [initialData, setTemplates, templates.length]);
+        console.log(templates)
+    }, [ templates.length]);
 
     return (
         <div data-table="templates">

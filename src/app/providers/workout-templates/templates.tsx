@@ -1,6 +1,7 @@
 'use client'
 
 import { deleteWorkoutTemplateAction } from '@/app/actions/deleteTemplate';
+import { revalidateTemplatesAction } from '@/app/actions/refreshCache';
 import { createContext, useCallback, useState, useContext, useEffect } from 'react'
 
 export const localStorageKey = process.env.NEXT_PUBLIC_TEMPLATE_STORAGE_KEY as string
@@ -44,7 +45,7 @@ export default function WorkoutTemplatesProvider({
     initialData = []
 }: {
     children: React.ReactNode,
-    initialData?: TemplateData[]
+    initialData: TemplateData[]
 }) {
     const [templates, setTemplates] = useState<TemplateData[]>(() => {
 
@@ -65,15 +66,17 @@ export default function WorkoutTemplatesProvider({
         return initialData;
     });
 
-    useEffect(() => {
+     useEffect(() => {
         if (typeof window !== 'undefined') {
-            try {
-                localStorage.setItem(localStorageKey, JSON.stringify(templates));
-            } catch (error) {
-                console.error('Error saving templates to localStorage:', error);
+            localStorage.setItem(localStorageKey, JSON.stringify(templates));
+            if (templates.length > 0 || localStorage.getItem(localStorageKey)) {
+                revalidateTemplatesAction().catch(error => 
+                    console.error('Failed to revalidate server cache:', error)
+                );
             }
         }
     }, [templates]);
+
 
     const addTemplate = useCallback((newTemplate: TemplateData) => {
         console.log("addTemplate called with:", newTemplate)
