@@ -1,11 +1,7 @@
-
 import Link from "next/link";
-import { getWorkoutTemplates } from "../lib/dal";
 import TemplateTable from "../ui/TemplateTable/TemplateTable";
 
 export default async function Templates() {
-  // Fetch data at the page level
-  const data = await getWorkoutTemplates();
 
   return (
     <div>
@@ -16,7 +12,7 @@ export default async function Templates() {
         </Link>
       </div>
 
-      <TemplateTable initialData={data} />
+      <TemplateTable />
     </div>
   );
 }

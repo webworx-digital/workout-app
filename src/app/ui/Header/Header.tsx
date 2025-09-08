@@ -7,7 +7,6 @@ import { localStorageKey } from "@/app/providers/workout-templates/templates";
 
 export default function Header() {
     const logOut = () => {
-        console.log(localStorageKey)
         if (typeof window !== 'undefined') {
             try {
                 localStorage.removeItem(localStorageKey);
