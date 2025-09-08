@@ -36,12 +36,12 @@ export default function CreateTemplate() {
 
     return (
 
-        <div>
-            <div className="flex justify-between items-center v">
+        <div className="pb-20">
+            <div className="flex justify-between items-center">
                 <h2 className="text-3xl font-bold mb-3">Create Templates</h2>
                 <Link href="/templates" className="underline hover:no-underline">View Templates</Link>
             </div>
-            <form action={action} className="flex flex-col bg-accent/20 rounded-[40px] p-7 ">
+            <form action={action} className="flex flex-col md:bg-accent/20 rounded-[40px] md:p-7 ">
                 {/* Input for basic information */}
                 <div className="space-y-4">
                     <Input label="Template Name" name="name" type="text" error={state?.errors?.templateName} />
