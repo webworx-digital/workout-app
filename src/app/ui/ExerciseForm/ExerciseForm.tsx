@@ -34,8 +34,8 @@ export default function ExerciseForm({ exerciseNumber, onRemove, errors }: Exerc
                 <h3 className="text-lg font-medium">Exercise {exerciseNumber}</h3>
                 <Button
                     size="sm"
+                    variant="danger"
                     onClick={onRemove}
-                    className="bg-red-500 hover:bg-red-600 text-white"
                 >
                     Remove Exercise
                 </Button>
@@ -59,7 +59,7 @@ export default function ExerciseForm({ exerciseNumber, onRemove, errors }: Exerc
                         <Button
                             size="sm"
                             onClick={handleAddSet}
-                            className="bg-green-500 hover:bg-green-600 text-white"
+                            variant="success"
                         >
                             + Add Set
                         </Button>

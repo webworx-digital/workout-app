@@ -19,7 +19,6 @@ export default function Input({ value, label, name, type, error, classNames,plac
             <input className="appearance-none block w-full border border-gray-300 rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name={name} id={name} type={type} value={value} placeholder={placeholder ? placeholder : 
                 'Enter ' + name} />
             <span className="text-red-800 text-sm mt-1 block">
-
                 {(type == 'password' && error) ?
                     (error.length == 1 && error[0] === 'Incorrect Password entered.') ?
                         error : (<div><p>Password must:</p>

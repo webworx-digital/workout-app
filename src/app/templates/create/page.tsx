@@ -53,7 +53,7 @@ export default function CreateTemplate() {
                         <span className="text-lg font-medium">Add Exercise</span>
                         <Button
                             onClick={handleAddExercise}
-                            className="bg-blue-500 hover:bg-blue-600"
+                            variant="success"
                         >
                             + Add Exercise
                         </Button>
@@ -70,7 +70,7 @@ export default function CreateTemplate() {
                         ))}
 
                         <div className="flex justify-end pt-4 border-t border-gray-200">
-                            <Button type="submit" className="bg-green-500 hover:bg-green-600">
+                            <Button type="submit" size="lg" variant="primary">
                                 {!pending ? 'Save Template' : 'Seving...'}
                             </Button>
                         </div>
