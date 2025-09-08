@@ -3,6 +3,7 @@
 import { deleteWorkoutTemplateAction } from '@/app/actions/deleteTemplate';
 import { createContext, useCallback, useState, useContext, useEffect } from 'react'
 
+export const localStorageKey = process.env.NEXT_PUBLIC_TEMPLATE_STORAGE_KEY as string
 // Fix: Define TemplateData as a single object, not an array
 export interface TemplateData {
     name: string,
@@ -21,6 +22,7 @@ export interface WorkoutTemplatesContextType {
 }
 
 export const WorkoutTemplatesContext = createContext<WorkoutTemplatesContextType>({
+
     templates: [],
     addTemplate: () => { },
     removeTemplate: () => { },
@@ -44,16 +46,14 @@ export default function WorkoutTemplatesProvider({
     children: React.ReactNode,
     initialData?: TemplateData[]
 }) {
-
-
-
     const [templates, setTemplates] = useState<TemplateData[]>(() => {
+
         if (typeof window === 'undefined') {
             return initialData;
         }
 
         try {
-            const savedTemplates = localStorage.getItem(process.env.TEMPLATE_STORAGE_KEY as string);
+            const savedTemplates = localStorage.getItem(localStorageKey);
             if (savedTemplates) {
                 const parsedTemplates = JSON.parse(savedTemplates);
                 return parsedTemplates.length > 0 ? parsedTemplates : initialData;
@@ -68,7 +68,7 @@ export default function WorkoutTemplatesProvider({
     useEffect(() => {
         if (typeof window !== 'undefined') {
             try {
-                localStorage.setItem(process.env.TEMPLATE_STORAGE_KEY as string, JSON.stringify(templates));
+                localStorage.setItem(localStorageKey, JSON.stringify(templates));
             } catch (error) {
                 console.error('Error saving templates to localStorage:', error);
             }
@@ -81,12 +81,47 @@ export default function WorkoutTemplatesProvider({
     }, [])
 
     const removeTemplate = useCallback(async (id: number) => {
+        let status = null;
         try {
-            const status = await deleteWorkoutTemplateAction(id);
-            // Only update state if deletion was successful
+            console.log('i am being called')
+            status = await deleteWorkoutTemplateAction(id); // Get status from the action
+            console.log(status)
             if (status) {
-                setTemplates(prev => prev.filter(template => template.id !== id));
+                console.log('haha')
+                setTemplates(prev => {
+                    const updatedTemplates = prev.filter(template => template.id !== id);
+                    console.log(updatedTemplates)
+                    try {
+                        if (updatedTemplates.length >= 1) {
+                            console.log("i am here - saving templates")
+                            localStorage.setItem(localStorageKey, JSON.stringify(updatedTemplates));
+                        } else {
+                            console.log("i am here - clearing templates", 0)
+                            console.log("Key to remove:", localStorageKey)
+
+                            try {
+                                localStorage.removeItem(localStorageKey);
+
+                                setTimeout(() => {
+                                    const check = localStorage.getItem(localStorageKey);
+                                    console.log("After timeout, key value:", check);
+                                    if (check !== null) {
+                                        console.log("Key still exists, trying again...");
+                                        localStorage.removeItem(localStorageKey);
+                                    }
+                                }, 10);
+                            } catch (error) {
+                                console.error("Error removing from localStorage:", error);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error saving templates to localStorage:', error);
+                    }
+
+                    return updatedTemplates;
+                });
             }
+
         } catch (error) {
             console.error('Failed to delete template:', error);
             // Handle error (show notification, etc.)
@@ -101,13 +136,14 @@ export default function WorkoutTemplatesProvider({
     }, [])
 
     const value: WorkoutTemplatesContextType = {
+
         templates,
         addTemplate,
         removeTemplate,
         updateTemplate,
         setTemplates
     }
-    
+
     return (
         <WorkoutTemplatesContext.Provider value={value}>
             {children}
