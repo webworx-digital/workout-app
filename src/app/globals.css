@@ -17,26 +17,38 @@
 }
 
 [data-table='templates'] {
-  @apply bg-accent/20 grid grid-cols-[300px_1fr_100px] rounded-t-[40px] rounded-b-[40px];
+  @apply bg-accent/20 md:grid md:grid-cols-[300px_1fr_100px] rounded-t-[40px] rounded-b-[40px];
 }
 
 [data-table='templates']>[data-table-header] {
-  @apply bg-gray-900 grid grid-cols-subgrid rounded-[40px] col-span-3 px-7 uppercase py-5 tracking-wider text-white;
+  @apply hidden bg-gray-900 md:grid md:grid-cols-subgrid rounded-[40px] md:col-span-3 px-7 uppercase py-5 tracking-wider text-white;
 }
 
 [data-table='templates']>[data-table-list] {
-  @apply grid grid-cols-subgrid col-span-3 px-7 grid-rows-[repeat(auto-fill,80px)] max-h-[600px] overflow-y-scroll
+  @apply flex gap-4 md:gap-[unset] flex-col md:grid md:grid-cols-subgrid md:col-span-3 px-3 md:px-7 md:grid-rows-[repeat(auto-fill,80px)] max-h-[700px] min-h-[500px] overflow-y-scroll overflow-x-hidden py-3 md:py-[unset];
 }
 
-[data-table='templates']>[data-table-list]>li {
-  @apply col-span-3 grid grid-cols-subgrid py-5 items-center;
+[data-table='templates']>[data-table-list]>li[data-item] {
+  @apply flex flex-wrap gap-5 md:gap-[unset] md:col-span-3 md:grid md:grid-cols-subgrid h-fit items-center bg-white md:bg-[unset] shadow md:shadow-none px-5 py-5 pt-10 md:pt-5 md:px-0 rounded-[40px] md:rounded-none;
 }
 
-[data-table='templates']>[data-table-list]>li:last-child {
-  @apply rounded-b-[40px];
+[data-table='templates']>[data-table-list]>li[data-item]:last-child {
+  @apply md:rounded-b-[40px];
 }
 
-[data-table='templates']>[data-table-list]>li:not(:last-child) {
+[data-table='templates']>[data-table-list]>li[data-item]>span {
+  @apply relative [&::before]:text-sm [&::before]:-top-[80%] [&::before]:absolute [&::before]:text-black/50 [&::before]:w-full [&::before]:h-full;
+}
+
+[data-table='templates']>[data-table-list]>li[data-item]>span:first-child {
+  @apply w-full [&::before]:content-["Template_Name:"] md:[&::before]:content-[unset];
+}
+
+[data-table='templates']>[data-table-list]>li[data-item]>span:nth-child(2) {
+  @apply flex-1 [&::before]:content-['Total_Exercises:'] md:[&::before]:content-[unset];
+}
+
+[data-table='templates']>[data-table-list]>li[data-item]:not(:last-child) {
   @apply border-b-1 border-primary/50;
 }
 

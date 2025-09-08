@@ -5,7 +5,7 @@ export default async function Home() {
   const totalTemplates = await getTotalWorkoutTemplates();
   return (
     <div className="text-2xl gap-4">
-      <div className="bg-accent/20 w-1/4 text-center overflow-hidden shadow sm:rounded-lg ">
+      <div className="bg-accent/20 w-full md:w-1/4 text-center overflow-hidden shadow sm:rounded-lg ">
         <div className="px-4 py-5 sm:p-6">
           <dl>
             <dt className="text-sm leading-5 mb-5 font-medium text-primary/80">Total Templates</dt>

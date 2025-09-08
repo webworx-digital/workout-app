@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`max-w-3xl mx-auto ${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`px-7 md:px-[unset] max-w-3xl mx-auto ${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         {isAuthenticated &&
           <div className="text-2xl gap-4">

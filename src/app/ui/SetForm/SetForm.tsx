@@ -9,12 +9,12 @@ interface SetForm {
 }
 export default function SetForm({ setNumber, exerciseNumber, onRemove, errors }: SetForm) {
     return (
-        <div className="bg-gray-50 border border-gray-200 rounded-md p-3 flex items-center gap-3">
+        <div className="bg-gray-50 border border-gray-200 rounded-md p-3 flex items-start md:items-center gap-3">
             <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full text-sm font-medium text-blue-700">
                 {setNumber}
             </div>
 
-            <div className="grid grid-cols-2 gap-2 flex-1">
+            <div className="flex flex-col md:grid grid-cols-2 gap-2 flex-1">
                 <Input
                     label="Reps"
                     name={`exercise-${exerciseNumber}-set-${setNumber}-reps`}
