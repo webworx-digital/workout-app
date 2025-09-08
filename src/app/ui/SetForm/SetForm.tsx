@@ -34,7 +34,7 @@ export default function SetForm({ setNumber, exerciseNumber, onRemove, errors }:
             <Button
                 size="sm"
                 onClick={onRemove}
-                className="bg-red-500 hover:bg-red-600 text-white px-2"
+                variant="danger"
             >
                 ×
             </Button>

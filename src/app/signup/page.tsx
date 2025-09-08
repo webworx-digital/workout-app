@@ -15,9 +15,9 @@ export default function SignUp() {
                 />
             </div> */}
 
-            <div className="relative flex-1 bg-gray-100 flex justify-center items-center">
-                
-                <SignUpForm className="relative w-lg border bg-white-700/40 border-gray-400 rounded-lg" />
+            <div className="relative flex-1 flex justify-center items-center">
+
+                <SignUpForm className="relative w-4/5 max-w-lg ring ring-offset-4 ring-black rounded-[40px] bg-form-gradient" />
                 <p className="text-center text-gray-500 text-xs absolute bottom-20 left-1/2 -translate-x-1/2">
                     &copy;2025 Workout App. All rights reserved.
                 </p>
