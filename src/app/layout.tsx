@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./ui/Header/Header";
-
+import { Analytics } from "@vercel/analytics/next"
 import { isLoggedIn } from "./lib/session";
 
 const geistSans = Geist({
@@ -38,6 +38,7 @@ export default async function RootLayout({
           </div>
         }
         {children}
+        <Analytics />
       </body>
     </html>
   );
