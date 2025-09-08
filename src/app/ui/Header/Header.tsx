@@ -2,19 +2,20 @@
 import { logout } from "@/app/actions/auth";
 import Button from "../Button/Button";
 import Nav from "../Nav/Nav";
+import { localStorageKey } from "@/app/providers/workout-templates/templates";
 
 
 export default function Header() {
-
     const logOut = () => {
+        console.log(localStorageKey)
         if (typeof window !== 'undefined') {
             try {
-                localStorage.removeItem(process.env.TEMPLATE_STORAGE_KEY!);
+                localStorage.removeItem(localStorageKey);
             } catch (error) {
                 console.error('Error removing templates to localStorage:', error);
             }
         }
-        if (!localStorage.getItem(process.env.TEMPLATE_STORAGE_KEY!)) {
+        if (!localStorage.getItem(localStorageKey)) {
             logout();
         }
     }

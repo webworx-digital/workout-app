@@ -93,6 +93,7 @@ export const getUserAuthorizationForTemplate = async (templateId: number, userId
 }
 
 export const deleteWorkoutTemplate = async (id: number) => {
+    console.log(id)
     const { isAuth, userId } = await verifySession();
 
     const isUserAuthorized = await getUserAuthorizationForTemplate(id, parseInt(userId.toString()));

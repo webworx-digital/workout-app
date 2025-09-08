@@ -3,10 +3,11 @@ import { deleteWorkoutTemplate } from "../lib/dal";
 
 export async function deleteWorkoutTemplateAction(id: number) {
     try {
+
         const result = await deleteWorkoutTemplate(id);
 
         return {
-            success: true,
+            success: result.status,
             data: result
         };
     } catch (error) {
